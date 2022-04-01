@@ -1,0 +1,37 @@
+---
+title: "Spaceship Titanic"
+author: "Yuxi Wang"
+date: '2022-04-01'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Spaceship Titanic
+
+The Spaceship Titanic was an interstellar passenger liner launched a month ago. With almost 13,000 passengers on board, the vessel set out on its maiden voyage transporting emigrants from our solar system to three newly habitable exoplanets orbiting nearby stars.
+
+While rounding Alpha Centauri en route to its first destination—the torrid 55 Cancri E—the unwary Spaceship Titanic collided with a spacetime anomaly hidden within a dust cloud. Sadly, it met a similar fate as its namesake from 1000 years before. Though the ship stayed intact, almost *half* of the passengers were transported to an alternate dimension!
+
+To help rescue crews and retrieve the lost passengers, there is a need to predict which passengers were transported by the anomaly using records recovered from the spaceship’s damaged computer system.
+
+```{r packages,echo = FALSE,message=FALSE}
+if (!require("tidyverse")){
+  install.packages("tidyverse")
+  library("tidyverse")
+}
+```
+
+### Read Data
+
+```{r data,message=FALSE}
+train<-read_csv("data/train.csv", col_names = TRUE)
+test<-read_csv("data/test.csv", col_names = TRUE)
+```
+
+#EDA
+```{r EDA.test, echo=FALSE}
+train.num_col<-c("Age","RoomService","FoodCourt","ShoppingMall","Spa","VRDeck")
+```
