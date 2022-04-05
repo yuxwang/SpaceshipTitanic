@@ -18,10 +18,22 @@ While rounding Alpha Centauri en route to its first destination—the torrid 55 
 To help rescue crews and retrieve the lost passengers, there is a need to predict which passengers were transported by the anomaly using records recovered from the spaceship’s damaged computer system.
 
 ```{r packages,echo = FALSE,message=FALSE}
+#packages: ggplot2, tibble, tidyr, readr,purrr,dplyr,stringr,forcats
 if (!require("tidyverse")){
   install.packages("tidyverse")
   library("tidyverse")
 }
+#packages: htmlwidgets,igraph,gridExtra,networkD3,DataExplorer
+if (!require("DataExplorer")){
+  install.packages("DataExplorer")
+  library("DataExplorer")
+}
+
+if (!require("ggcorrplot")){
+  install.packages("ggcorrplot")
+  library("ggcorrplot")
+}
+
 ```
 
 ### Read Data
@@ -33,5 +45,28 @@ test<-read_csv("data/test.csv", col_names = TRUE)
 
 #EDA
 ```{r EDA.test, echo=FALSE}
-train.num_col<-c("Age","RoomService","FoodCourt","ShoppingMall","Spa","VRDeck")
+plot_histogram(train)
+plot_boxplot(train, by = "Transported")
+library(ggcorrplot)
+
+```
+
+### Data Wrangling and Cleaning
+
+```{r dataWrgl}
+train<-train %>% 
+  separate(PassengerId,c("Passenger_Group","Passenger_GroupNum"),
+           remove = FALSE) %>% 
+  separate(Cabin,c("Cabin_deck","Cabin_num","Cabin_side"),remove = FALSE)
+```
+
+```{r dataCln}
+#DATA CLEANING
+
+##removing unwanted observations-duplicate or irrelevant
+###check with duplicate records
+length(unique(train$PassengerId))==length(train$PassengerId) #no duplicates
+
+#find columns with NAs
+names(which(colSums(is.na(train))>0))
 ```
